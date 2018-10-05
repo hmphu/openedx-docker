@@ -19,3 +19,45 @@ PIPELINE_ENABLED = False
 STATICFILES_STORAGE = "openedx.core.storage.DevelopmentStorage"
 
 ALLOWED_HOSTS = ["*"]
+
+# configurable-lti-consumer sample configuration
+CONFIGURABLE_XBLOCKS_SETTINGS = {
+    "components": [{
+        "module": "lti_consumer",
+        "base_class": "ConfigurableLtiConsumerXBlock",
+        "subclasses": [{
+            "name": "Video",
+            "display": "Video LTI xblock",
+            "lti": {
+                "key": "jisc.ac.uk",
+                "secret": "secret",
+            },
+            "default_values": {
+                "description": "Video",
+                "lti_id": "",
+                "launch_target": "iframe",
+                "launch_url": "http://ltiapps.net/test/tp.php",
+                "custom_parameters": [],
+                "button_text": "button",
+                "inline_height": 800,
+                "modal_height": 800,
+                "modal_width": 80,
+                "has_score": False,
+                "weight": 0,
+                "hide_launch": False,
+                "accept_grades_past_due": False,
+                "ask_to_send_username": True,
+                "ask_to_send_email": True
+
+            }
+        },{
+            "name": "Generic",
+            "display": "Generic LTI xblock",
+            "default_values": {
+                "description": "Generic",
+                "ask_to_send_username": True,
+                "ask_to_send_email": True
+            }
+        }]
+    }]
+}

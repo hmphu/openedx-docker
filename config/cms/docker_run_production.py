@@ -727,6 +727,33 @@ plugin_settings.add_plugins(
     __name__, plugin_constants.ProjectType.CMS, plugin_constants.SettingsType.AWS
 )
 
+DEFAULT_CONFIGURABLE_XBLOCKS_SETTINGS = {
+    "components": [{
+        "module": "lti_consumer",
+        "base_class": "ConfigurableLtiConsumerXBlock",
+        "subclasses": [{
+            "name": "Generic",
+            "display": "Generic LTI xblock",
+            "default_values": {
+                "description": "Generic",
+                "ask_to_send_username": True,
+                "ask_to_send_email": True
+            }
+        }]
+    }]
+}
+
+# configurable-lti-consumer configuration
+CONFIGURABLE_XBLOCKS_SETTINGS = config(
+    "CONFIGURABLE_XBLOCKS_SETTINGS", default=DEFAULT_CONFIGURABLE_XBLOCKS_SETTINGS, formatter=json.loads
+)
+
+# Here we set XBLOCK_SELECT_FUNCTION setting to a configurable_lti_consumer
+# helper function that will be passed to XBock.load_class
+# method to filter multiple Python endpoints for the same xblock (lti_consumer)
+from configurable_lti_consumer import configurable_xblocks
+XBLOCK_SELECT_FUNCTION = configurable_xblocks
+
 ########################## Derive Any Derived Settings  #######################
 
 derive_settings(__name__)

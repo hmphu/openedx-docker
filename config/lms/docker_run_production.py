@@ -1423,6 +1423,27 @@ plugin_settings.add_plugins(
     __name__, plugin_constants.ProjectType.LMS, plugin_constants.SettingsType.AWS
 )
 
+DEFAULT_CONFIGURABLE_XBLOCKS_SETTINGS = {
+    "components": [{
+        "module": "lti_consumer",
+        "base_class": "ConfigurableLtiConsumerXBlock",
+        "subclasses": [{
+            "name": "Generic",
+            "display": "Generic LTI xblock",
+            "default_values": {
+                "description": "Generic",
+                "ask_to_send_username": True,
+                "ask_to_send_email": True
+            }
+        }]
+    }]
+}
+
+# configurable-lti-consumer configuration
+CONFIGURABLE_XBLOCKS_SETTINGS = config(
+    "CONFIGURABLE_XBLOCKS_SETTINGS", default=DEFAULT_CONFIGURABLE_XBLOCKS_SETTINGS, formatter=json.loads
+)
+
 ########################## Derive Any Derived Settings  #######################
 
 derive_settings(__name__)
